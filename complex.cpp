@@ -18,16 +18,16 @@ Complex::Complex(const Complex& number) {
     imaginary = number.imaginary;
 }
 
-Complex Complex::add(const Complex& secondNum) const {
-    return Complex(real + secondNum.real, imaginary + secondNum.imaginary);
+Complex operator+(const Complex& firstNum, const Complex& secondNum) {
+    return Complex(firstNum.real + secondNum.real, firstNum.imaginary + secondNum.imaginary);
 }
 
-Complex Complex::mul(const Complex& secondNum) const {
-    return Complex(real * secondNum.real - imaginary * secondNum.imaginary, real * secondNum.imaginary + imaginary * secondNum.real);
+Complex operator*(const Complex& firstNum, const Complex& secondNum) {
+    return Complex(firstNum.real * secondNum.real - firstNum.imaginary * secondNum.imaginary, firstNum.real * secondNum.imaginary + firstNum.imaginary * secondNum.real);
 }
 
-bool Complex::equ(const Complex& secondNum) const {
-    return (real == secondNum.real) && (imaginary == secondNum.imaginary);
+bool operator==(const Complex& firstNum, const Complex& secondNum) {
+    return (firstNum.real == secondNum.real) && (firstNum.imaginary == secondNum.imaginary);
 }
 
 Complex& Complex::operator++() {
@@ -53,7 +53,7 @@ Complex Complex::operator--(int) {
 }
 
 ostream& operator<<(ostream& out, const Complex& obj) {
-    out << "(" << obj.real << ", " << obj.imaginary << ")";
+    out << string(obj);
     return out;
 }
 
@@ -65,8 +65,14 @@ istream& operator>>(istream& in, Complex& obj) {
     return in;
 }
 
-string Complex::ToString() const {
-    stringstream sout;
-    sout << "(" << real << ", " << imaginary << ")";
-    return sout.str();
+Complex::operator string () const {
+    stringstream ss;
+    ss << "(" << real << ", " << imaginary << ")";
+    return ss.str();
+}
+
+Complex& Complex::operator= (const Complex& c) {
+    real = c.real;
+    imaginary = c.imaginary;
+    return *this;
 }

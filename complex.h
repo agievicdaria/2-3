@@ -17,10 +17,11 @@ public:
     void SetReal(double value) { real = value; }
     void SetImaginary(double value) { imaginary = value; }
 
-    Complex add(const Complex& secondNum) const;
-    Complex mul(const Complex& secondNum) const;
-    bool equ(const Complex& secondNum) const;
-    string ToString() const;
+    friend Complex operator+(const Complex& firstNum, const Complex& secondNum);
+    friend Complex operator*(const Complex& firstNum, const Complex& secondNum);
+    friend bool operator==(const Complex& firstNum, const Complex& secondNum);
+    operator string() const;
+    Complex& operator= (const Complex&);
 
     Complex& operator++();
     Complex operator++(int);
